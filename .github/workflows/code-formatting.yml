@@ -1,0 +1,21 @@
+name: Code Formatting
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  format:
+    name: Format Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Clang-Format
+        run: sudo apt-get install -y clang-format
+
+      - name: Format Code
+        run: clang-format -i *.cpp *.h *.hpp # 根据您的项目中的文件类型进行适当的调整
