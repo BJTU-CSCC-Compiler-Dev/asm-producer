@@ -23,9 +23,15 @@ jobs:
       - name: Format Code
         run: find src -name "*.hpp" -o -name "*.cpp" | xargs clang-format -i
 
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet || echo "::set-output name=changes::true"
+
       - name: Commit Changes
+        if: steps.check_changes.outputs.changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action auto-format-on-push"
-          git commit -am "Refactor : Auto format code"
+          git commit -am "Refactor : Auto format code" || 
           git push
