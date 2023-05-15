@@ -8,8 +8,7 @@
 
 
 int main(int argc, char ** argv) {
-	config::init(argc, argv);
-	std::cout << config::get() << std::endl;
+	config::init(argc, argv); std::cout << config::get() << std::endl;
 
 	auto sysySrc = std::ifstream();
 	sysySrc.open(config::get().sysySrcFilePath);
