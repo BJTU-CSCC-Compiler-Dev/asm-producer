@@ -18,4 +18,4 @@ jobs:
         run: sudo apt-get install -y clang-format
 
       - name: Format Code
-        run: clang-format -i *.cpp *.h *.hpp # 根据您的项目中的文件类型进行适当的调整
+        run: find src -name "*.hpp" -o -name "*.cpp" | xargs clang-format -i
