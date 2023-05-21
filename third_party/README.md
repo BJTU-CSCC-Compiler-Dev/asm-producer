@@ -10,6 +10,12 @@
 
 * [dbg-macro](https://github.com/sharkdp/dbg-macro)，通过源码管理。
 
+* [moe NakagawaNatsuki 2.0.1](https://github.com/ipChrisLee/moe/tree/NakagawaNatsuki-2.0.1)，通过源码管理。
+
+  这是我为了2022年编译设计赛写的一些库的跟进版本，里面包括一些简单但有用的东西，比如`moe_rt_warning`。
+
+  在这个仓库里，通过源码管理，可以自行增加新feature。
+
 为了避免触发查重，我们暂时只引入了这些库，但是实际上还有下列优秀的开源库可以考虑引入：
 
 * [fmtlib](https://github.com/fmtlib/fmt)

@@ -20,33 +20,33 @@ constInitVal
 varDecl : bType varDef (',' varDef)* ';';
 
 varDef
-    : Identifier ('[' constExp ']')* # uninitVarDef
+    : Identifier ('[' constExp ']')* # unInitVarDef
     | Identifier ('[' constExp ']')* '=' initVal # initVarDef
     ;
 
 initVal
     : exp # scalarInitVal
-    | '{' (initVal (',' initVal)* )? '}' # listInitval
+    | '{' (initVal (',' initVal)* )? '}' # listInitVal
     ;
 
-funcDef : funcType Identifier '(' (funcFParams)? ')' block;
+funcDef : funcType Identifier '(' (funcFparamList)? ')' block;
 
 funcType : 'void' | 'int' | 'float' ;
 
-funcFParams : funcFParam (',' funcFParam)*;
+funcFparamList : funcFparam (',' funcFparam)*;
 
-funcFParam : bType Identifier ('[' ']' ('[' constExp ']')* )?;
+funcFparam : bType Identifier ('[' ']' ('[' constExp ']')* )?;
 
 block : '{' (blockItem)* '}';
 
 blockItem : decl | stmt;
 
 stmt
-    : lVal '=' exp ';' # assignment
+    : lVal '=' exp ';' # assignmentStmt
     | (exp)? ';' # expStmt
     | block # blockStmt
-    | 'if' '(' cond ')' stmt # ifStmt1
-    | 'if' '(' cond ')' stmt 'else' stmt # ifStmt2
+    | 'if' '(' cond ')' stmt # ifStmt
+    | 'if' '(' cond ')' stmt 'else' stmt # ifElseStmt
     | 'while' '(' cond ')' stmt # whileStmt
     | 'break' ';' # breakStmt
     | 'continue' ';' # continueStmt
@@ -59,57 +59,59 @@ cond : lOrExp;
 
 lVal : Identifier ('[' exp ']')*;
 
-primaryExp
-    : '(' exp ')' # primaryExp1
-    | lVal # primaryExp2
-    | number # primaryExp3
+rVal : Identifier ('[' exp ']')*;
+
+primExp
+    : '(' exp ')' # primParenExp
+    | rVal # primRvalExp
+    | number # primConstExp
     ;
 
 number : IntLiteral | FloatLiteral;
 
 unaryExp
-    : primaryExp # unary1
-    | Identifier '(' (funcRParams)? ')' # unary2
-    | unaryOp unaryExp # unary3
+    : primExp # unaryToPrimExp
+    | Identifier '(' (funcRparamList)? ')' # unaryFuncCallExp
+    | unaryOp unaryExp # unaryOpExp
     ;
 
 unaryOp : '+' | '-' | '!';
 
-funcRParams : funcRParam (',' funcRParam)*;
+funcRparamList : funcRparam (',' funcRparam)*;
 
-funcRParam
-    : exp # expAsRParam
-    | STRING # stringAsRParam
+funcRparam
+    : exp # expAsRparam
+    | STRING # stringAsRparam
     ;
 
 mulExp
-    : unaryExp # mul1
-    | mulExp ('*' | '/' | '%') unaryExp # mul2
+    : unaryExp # mulToUnaryExp
+    | mulExp ('*' | '/' | '%') unaryExp # mulTwoExp
     ;
 
 addExp
-    : mulExp # add1
-    | addExp ('+' | '-') mulExp # add2
+    : mulExp # addToMulExp
+    | addExp ('+' | '-') mulExp # addTwoExp
     ;
 
 relExp
-    : addExp # rel1
-    | relExp ('<' | '>' | '<=' | '>=') addExp # rel2
+    : addExp # relToAddExp
+    | relExp ('<' | '>' | '<=' | '>=') addExp # relTwoExp
     ;
 
 eqExp
-    : relExp # eq1
-    | eqExp ('==' | '!=') relExp # eq2
+    : relExp # eqToRelExp
+    | eqExp ('==' | '!=') relExp # eqTwoExp
     ;
 
 lAndExp
-    : eqExp # lAnd1
-    | lAndExp '&&' eqExp # lAnd2
+    : eqExp # lAndToEqExp
+    | lAndExp '&&' eqExp # lAndTwoExp
     ;
 
 lOrExp
-    : lAndExp # lOr1
-    | lOrExp '||' lAndExp # lOr2
+    : lAndExp # lOrToLandExp
+    | lOrExp '||' lAndExp # lOrTwoExp
     ;
 
 constExp

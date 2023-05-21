@@ -36,7 +36,7 @@ License (MIT):
 #endif
 
 #ifndef DBG_MACRO_NO_WARNING
-#pragma message("WARNING: the 'dbg.h' header is included in your code base")
+// #pragma message("WARNING: the 'dbg.h' header is included in your code base")
 #endif  // DBG_MACRO_NO_WARNING
 
 #include <algorithm>

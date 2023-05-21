@@ -19,7 +19,7 @@ build/bin/asm-producer:	#	prerequisites are managed by cmake, so no prerequisite
 	cd build && cmake .. -G "Unix Makefiles" && make asm-producer
 	# -DCMAKE_BUILD_TYPE=Release
 
-.PHONY: all clean show run
+.PHONY: all clean show run demo_run
 .DEFAULT_GOAL := all
 all: ${allForBuild}
 
@@ -32,3 +32,13 @@ show:
 args ?= --help
 run: build/bin/asm-producer
 	@build/bin/asm-producer --help
+
+include .demo/config.mk
+demoSysyBase ?= demo
+
+demo_run:
+	mkdir -p build && cd build && cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Build && make
+	build/${dutBin} .demo/${demoSysyBase}.sysy -o .demo/${demoSysyBase}.S ${dutOptions}
+
+demo_see_ast:
+	antlr4-parse sysy/SysY.g4 sysy/CommonLex.g4 compUnit .demo/${demoSysyBase}.sysy -gui

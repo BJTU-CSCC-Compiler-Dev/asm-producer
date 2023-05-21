@@ -4,6 +4,6 @@ cmake-build-release
 build
 sysy/include
 sysy/antlr-4.12.0-complete.jar
+sysy/tmp
 third_party/conan
 .run
-.demo

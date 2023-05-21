@@ -1,6 +1,7 @@
 执行需要：
 * `java`环境。
 * `conan`已安装和配置。请参考[conan-installation](https://docs.conan.io/1/installation.html)和[conan-getting-started](https://docs.conan.io/1/getting_started.html)来完成初始化。
+* `antlr4-tools`已安装。`pip install antlr4-tools==0.2.0`。 
 
 之后在项目根执行`make all`以完成初始化。
 

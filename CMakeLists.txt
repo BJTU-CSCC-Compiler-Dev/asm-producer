@@ -25,8 +25,20 @@ file(GLOB sysyCppFiles sysy/include/*.cpp)
 add_executable(
 	asm-producer
 	${sysyCppFiles}
+	third_party/include/moe/rt_check.cpp
 	src/main.cpp
 	src/config.cpp
+	src/mir/usedef.cpp
+	src/mir/ssa.cpp
+	src/mir/type.cpp
+	src/mir/pass.cpp
+	src/front/ast_visitor.cpp
+	src/front/symbol_table.cpp
+	src/front/ast_visitor_func.cpp
+	src/front/ast_visitor_exp.cpp
+	src/front/ast_visitor_blockitem.cpp
+	src/front/ast_visitor_var.cpp
+	src/front/ast_visitor_helper.cpp
 )
 target_include_directories(
 	asm-producer PUBLIC
