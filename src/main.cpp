@@ -5,11 +5,11 @@
 
 #include "config.hpp"
 #include "front/ast_visitor.hpp"
-
+#include <utils/utils.hpp>
 
 int main(int argc, char ** argv) {
 	config::init(argc, argv);
-	std::cout << config::get() << std::endl;
+	println(config::get());
 
 	//	frontend : source code => ast
 	auto sysySrc = std::ifstream();
@@ -25,7 +25,7 @@ int main(int argc, char ** argv) {
 	auto astVisitor = front::AstVisitor();
 	auto r = std::any_cast<std::shared_ptr<mir::CompUnitSsa>>(root->accept(&astVisitor));
 	auto dh = mir::DumpHelper();
-	std::cout << r->dump(dh) << std::endl;
+	println(r->dump(dh));
 
 	return 0;
 }
