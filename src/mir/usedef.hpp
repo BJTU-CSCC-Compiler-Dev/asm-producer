@@ -96,7 +96,9 @@ class Value {
 
 class Use {
   public:
-	Use(std::shared_ptr<Value> value, User * user) : value_(std::move(value)), user_(user) {}
+	Use(std::shared_ptr<Value> value, User * user) : value_(std::move(value)), user_(user) {
+		if (value_) value_->add_use(this);
+	}
 	Use(const Use & use) : value_(use.value_), user_(use.user_) {
 		if (value_) value_->add_use(this);
 	}
